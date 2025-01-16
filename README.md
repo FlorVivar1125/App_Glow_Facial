@@ -138,3 +138,10 @@ Usuarios_idUsuarios (FK): Identificador del usuario que interactuó con el produ
 Categorías_idCategorias (FK): Categoría asociada al producto.
 
 Opiniones_idOpiniones (FK): Relación con las opiniones sobre el producto.
+
+
+Glow Facial tiene el potencial de transformar el cuidado facial, ofreciendo productos personalizados y una experiencia única.
+
+Sigamos trabajando para convertir esta app en una solución innovadora y accesible para todos.
+
+¡Hagámoslo realidad! 🌟
