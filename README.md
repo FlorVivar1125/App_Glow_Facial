@@ -139,6 +139,50 @@ Categorías_idCategorias (FK): Categoría asociada al producto.
 
 Opiniones_idOpiniones (FK): Relación con las opiniones sobre el producto.
 
+### *Script*
+CREATE DATABASE  IF NOT EXISTS `spa`;
+USE `spa`;
+
+DROP TABLE IF EXISTS `facturacion`;
+CREATE TABLE `facturacion` (
+  `idfacturacion` int NOT NULL,
+  `idUsuario` int NOT NULL,
+  `idEmpleado` int NOT NULL,
+  `idServicio` int NOT NULL,
+  `idProducto` int NOT NULL,
+  `Subtotal` double DEFAULT NULL,
+  `Descuento` double DEFAULT NULL,
+  `Total` double DEFAULT NULL,
+  PRIMARY KEY (`idfacturacion`,`idUsuario`,`idEmpleado`,`idServicio`,`idProducto`),
+  KEY `fkUsuario_idx` (`idUsuario`),
+  KEY `fk_producto` (`idProducto`),
+  CONSTRAINT `fk_producto` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idproducto`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fkUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `producto`;
+CREATE TABLE `producto` (
+  `idproducto` int NOT NULL,
+  `Nombre` varchar(45) DEFAULT NULL,
+  `Marca` varchar(45) DEFAULT NULL,
+  `Descripcion` varchar(200) DEFAULT NULL,
+  `Precio` double DEFAULT NULL,
+  PRIMARY KEY (`idproducto`),
+  CONSTRAINT `fkprod` FOREIGN KEY (`idproducto`) REFERENCES `facturacion` (`idProducto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE `usuario` (
+  `idUsuario` int NOT NULL,
+  `Nombre` varchar(45) DEFAULT NULL,
+  `Apellido` varchar(45) DEFAULT NULL,
+  `Pass` varchar(45) DEFAULT NULL,
+  `Correo` varchar(90) DEFAULT NULL,
+  `Telf` varchar(45) DEFAULT NULL,
+  `Direccion` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`idUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 Glow Facial tiene el potencial de transformar el cuidado facial, ofreciendo productos personalizados y una experiencia única.
 
