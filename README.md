@@ -75,69 +75,72 @@ Para abordar las necesidades identificadas, Glow Facial debe cumplir con los sig
 
 ## *Modelo Relacional*
 
-![image](https://github.com/user-attachments/assets/7e8fac67-c098-49b4-acf6-a6feb9ab0354)
+![image](https://github.com/user-attachments/assets/27bfe806-761c-4ca4-8aeb-13afc4ce76e7)
+
 
 El modelo relacional de Glow Facial está diseñado para organizar los datos de manera eficiente y garantizar una gestión clara de los usuarios, productos, categorías, opiniones y detalles de productos relacionados.
 
 ### *Tablas Principales y Relaciones*
 
-**1° Usuarios.**
+**1. Usuario**
 
-**-**Campos principales:
+PK: idUsuario (INT)
 
-idUsuarios (PK): Identificador único del usuario.
+Atributos: Nombre, Apellido, Correo, Teléfono, Dirección, TipoCliente
 
-Nombre, Apellido, Ciudad, Estado, País, Correo electrónico, Teléfono: Información personal del usuario.
+**Relaciones:**
 
-Producto_idProducto (FK): Relación con los productos que el usuario ha adquirido.
+Se relaciona con Facturación (idUsuario como FK) → Un usuario puede tener múltiples facturas.
 
-**2° Producto.**
+**3. Empleado**
 
-**-** Campos principales:
+PK: idEmpleado (INT)
 
-idProducto (PK): Identificador único del producto.
+Atributos: Nombre, Apellido, TiempoServicio, Rol
 
-Nombre, Marca, Descripción, Precio: Detalles del producto.
+**Relaciones:**
 
-Relacionado con:
+Se relaciona con Facturación (idEmpleado como FK) → Un empleado puede gestionar múltiples facturas.
 
-Usuarios: A través de Producto_idProducto.
+**4. Servicio**
 
-Detalle del producto: Para vincular categorías y opiniones.
+PK: idServicio (INT)
 
-**3° Categorías.**
+Atributos: Detalle, Precio
 
-**-** Campos principales:
+**Relaciones:**
 
-idCategorias (PK): Identificador único de la categoría.
+Se relaciona con Facturación (idServicio como FK) → Un servicio puede estar asociado a múltiples facturas.
 
-Nombre, Descripción: Detalles de la categoría.
+**5. Producto**
 
-Productos_idProducto (FK): Relación con los productos en esta categoría.
+PK: idProducto (INT)
 
-**4° Opiniones.**
+Atributos: Nombre, Marca, Descripción, Precio
 
-**-** Campos principales:
+**Relaciones:**
 
-idOpiniones (PK): Identificador único de la opinión.
+Se relaciona con Facturación (idProducto como FK) → Un producto puede estar asociado a múltiples facturas.
 
-Contenido: Texto de la opinión del usuario.
+**6. Facturación**
 
-Publicado: Fecha en que se publicó la opinión.
+PK: idFacturacion (INT)
 
-Producto_idProducto (FK): Relación con el producto que se está opinando.
+Atributos: Subtotal, Descuento, Total, Comentarios
 
-**5° Detalle del Producto.**
+**FK:**
 
-**-** Campos principales:
+idUsuario (Referencia a Usuario)
 
-Producto_idProducto (FK): Identificador único del producto.
+idEmpleado (Referencia a Empleado)
 
-Usuarios_idUsuarios (FK): Identificador del usuario que interactuó con el producto.
+idServicio (Referencia a Servicio)
 
-Categorías_idCategorias (FK): Categoría asociada al producto.
+idProducto (Referencia a Producto)
 
-Opiniones_idOpiniones (FK): Relación con las opiniones sobre el producto.
+**Descripción:**
+
+Es la tabla central donde se registran las facturas, asociando a cada transacción un usuario, un empleado que la gestionó, y los productos o servicios adquiridos.
 
 ### *Script*
 CREATE DATABASE  IF NOT EXISTS `spa`;
